@@ -1,8 +1,7 @@
 from tkinter import filedialog
-from tkinter import *
+
 
 file_name = filedialog.askopenfilename()
-#file_name= "addresses.csv"
 file = open(file_name, "r")
 
 def count_lines(file_name):
