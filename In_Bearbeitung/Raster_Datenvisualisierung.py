@@ -24,13 +24,13 @@ print("_"*10*(len(data1)))
 
 for i in range(line_count):
     for x in range(len(data[i])):
-        print(f"|{data[i][x]:<7}" ,end="")
+        try:
+            data[i][x] = int(data[i][x])
+            print(f"|{data[i][x]:>7}", end="")
+        except ValueError:
+                print(f"|{data[i][x]:<7}", end="")
     print("|")
-
-
-
-
-#print(f"|{data1[0]:<7}|")
+# Sort strings based on if they are a number or a float or a word
 
 
 
