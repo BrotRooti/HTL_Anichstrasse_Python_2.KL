@@ -30,7 +30,6 @@ for i in range(line_count):
         except ValueError:
                 print(f"|{data[i][x]:<7}", end="")
     print("|")
-# Sort strings based on if they are a number or a float or a word
 
 
 
