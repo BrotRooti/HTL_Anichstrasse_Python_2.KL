@@ -29,11 +29,11 @@ while True:
                "ä": 0, "ö": 0, "ü": 0, "ß": 0} # Creates a dictionary with all the letters and resets their amount
 
     choice = input(
-        "Do you want to analyse a file? If yes input 'f' \n"
+        "Do you want to analyse a file? If yes input 'y' \n"
         "If no and you would like to cancel the programm input 'c'\n")  # Ask the user if they want to analyse a
     # word or a file
 
-    if choice == "f":  # If they want to analyse a file
+    if choice == "y":  # If they want to analyse a file
         while FileNotFoundError:
             file_name = input("Enter a file name: ")  # Ask for the file name
             try:
@@ -56,10 +56,13 @@ while True:
         exit()  # Exits the program
 
     else:
-        print("Invalid input. Please type in 'f' for file or 'c' to cancel.")
+        print("Invalid input. Please use one of the given options.")
+        print("")
         continue
 
-    print(f"Ammount of each Letter in the File")
+    print("")
+    print("_" * 15)
+    print(f"Ammount of each Letter in the {file_name}")
     print("-" * 15)
 
     for c in letters:
