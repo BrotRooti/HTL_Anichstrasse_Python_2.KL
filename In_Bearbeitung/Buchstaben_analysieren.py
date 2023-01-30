@@ -3,9 +3,9 @@ Phillip 22.01.2023
 '''
 
 from string import ascii_lowercase as letters
-#import ascii_art
+import ascii_art
 
-#ascii_art.print_art("Buchstaben_Analysieren")
+ascii_art.print_art("Buchstaben_Analysieren")
 
 print(f"The following program will analyse a file and tell you how many times each letter appears in the file.")
 print("")
