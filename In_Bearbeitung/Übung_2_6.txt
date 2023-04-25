@@ -1,0 +1,23 @@
+#include <kipr/wombat.h>
+
+int main()
+{
+
+    clear_motor_position_counter(2);
+    clear_motor_position_counter(3);
+    motor(3,100);
+    motor(2,97); 
+    while(analog(0)<1500){
+    msleep(200);
+    }
+    ao();
+    motor(3,-100);
+    motor(2,-97); 
+    while(get_motor_position_counter(3)>= 0){
+    msleep(50);
+    }
+    return 0;
+}
+
+
+digns 74
