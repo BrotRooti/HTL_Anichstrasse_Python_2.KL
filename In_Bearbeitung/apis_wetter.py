@@ -1,5 +1,5 @@
 
-from pyowm.commons.exceptions import NotFoundError
+
 import requests
 
 
@@ -13,19 +13,18 @@ api_key = '18bca685e2b3a0f410b5f71a66a8a621'
 #mgg = owm.geocoding_manager()
 
 
-def decoder(ort):
+def gps_decoder(ort):
     ruckgabe = []
 
     gps = requests.get("http://api.openweathermap.org/geo/1.0/direct",
                             params ={'q':ort,'limit':'1' ,'appid':api_key} )
     gps_json = gps.json()
-    print(gps_json)
     if gps_json == []:
-        raise NotFoundError
+        raise ValueError
     ruckgabe.append(gps_json[0]['lon'])
     ruckgabe.append(gps_json[0]['lat'])
-    print(gps.url)
-    print(ruckgabe)
+    ruckgabe.append(gps_json[0]['country'])
+
     return ruckgabe
 
 def emoji_lookup (status):
@@ -69,19 +68,20 @@ def emoji_lookup (status):
 def get_weather(coords,api_key,ort):
 
         data = requests.get("https://api.openweathermap.org/data/2.5/weather",
-                            params={'lat':coords[0],'lon':coords[1],'appid':api_key,'units':'metric','lang':'de'})
+                            params={'lon':coords[0],'lat':coords[1],'appid':api_key,'units':'metric','lang':'de'})
 
         data_json = data.json()
         temp = data_json['main']['temp']
 
 
         wetter = data_json['weather'][0]['description']
-        emoji = emoji_lookup(wetter)
+        emoji = emoji_lookup(data_json['weather'][0]['main'])
 
 
-        print("Wetterbericht")
-        print(f'In {ort} ist es gerade {wetter} {emoji}')
+        print(f"\033[1m \033[95m Wetterbericht für {ort} in {coords[2]} \033[0m")
+        print(f'\033[96mIn {ort} in ist es gerade {wetter} {emoji}')
         print(f'In {ort} hat es gerade {temp}°C 🌡')
+        print("\033[0m"*2)
 
 
 
@@ -89,19 +89,22 @@ def get_weather(coords,api_key,ort):
 
 
 while True:
-    print("Herzlich Willkommen bei Ihrer persönlichen Wetter-API")
+    print(f"\033[1m\033[36mHerzlich Willkommen bei Ihrem persönlichen Wetterbericht!")
     while True:
         try:
-            ort = input("Bitte geben sie den Ort ein: ")
-            coords=decoder(ort)
-        except NotFoundError:
-            print(f'Ich konnte {ort} nicht finden :(')
+            print("\033[0m")
+            ort = input("Bitte geben sie den Ort für den Sie gerne einen Wetterbericht hätten ein: ")
+            coords=gps_decoder(ort)
+
+        except :
+            print(f'\033[1m\033[91mIch konnte {ort} nicht finden :(')
             continue
         break
-
+    print("\n"*100)
     get_weather(coords,api_key,ort)
-    reset = input("Möchten Sie noch einen Ort abfragen? (j/n)")
+    reset = input("\033[4mMöchten Sie noch einen Ort abfragen? (j/n)")
     if reset == 'n':
         break
     else:
+        print("\n" * 100)
         continue
