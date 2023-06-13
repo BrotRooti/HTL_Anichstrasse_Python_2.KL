@@ -3,7 +3,7 @@ import time
 from random import randint
 
 class Reaction(Frame):
-    def __init__(self, master=None):
+    def __init__(self, c,master=None):
         super().__init__(master)
         self.create_widgets()
 
@@ -42,6 +42,6 @@ class Reaction(Frame):
 
 app = Tk()
 app.title("Reaktionstest")
-app.geometry("400x300")
-react = Reaction(app)
+app.geometry("800x600")
+react = Reaction(app,c)
 react.mainloop()
