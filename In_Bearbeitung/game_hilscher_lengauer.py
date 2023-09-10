@@ -92,6 +92,7 @@ class BubbleBlaster:
         v = randint(1, self.MAX_BUB_GESCHW)
         if randint(1, 20) == 1:
             id_num = self.c.create_image(x, y, image=self.special_bubble_img)
+            v = v + 5
         else:
             id_num = self.c.create_image(x, y, image=self.bubble_img)
         self.bub_id.append(id_num)
@@ -152,5 +153,5 @@ while True:
     try:
         if __name__ == "__main__":
             game.start()
-    except SystemExit:
+    except TclError or SystemExit:
         quit()
